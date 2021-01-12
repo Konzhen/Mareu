@@ -1,4 +1,4 @@
-package model;
+package com.lamzone.maru.model;
 
 import java.util.Arrays;
 import java.util.List;

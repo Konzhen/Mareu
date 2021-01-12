@@ -1,6 +1,6 @@
 package com.lamzone.maru.events;
 
-import model.Meeting;
+import com.lamzone.maru.model.Meeting;
 
 public class DeleteMeetingEvent {
 

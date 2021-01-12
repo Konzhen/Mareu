@@ -1,4 +1,4 @@
-package model;
+package com.lamzone.maru.model;
 
 public class Meeting {
 

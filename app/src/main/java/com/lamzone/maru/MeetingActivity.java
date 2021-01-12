@@ -16,7 +16,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import model.MeetingApiService;
+import com.lamzone.maru.model.MeetingApiService;
 
 public class MeetingActivity extends AppCompatActivity {
 

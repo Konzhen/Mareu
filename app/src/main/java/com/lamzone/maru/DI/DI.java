@@ -1,7 +1,7 @@
 package com.lamzone.maru.DI;
 
-import model.DummyMeetingApiService;
-import model.MeetingApiService;
+import com.lamzone.maru.model.DummyMeetingApiService;
+import com.lamzone.maru.model.MeetingApiService;
 
 public class DI {
 
