@@ -1,10 +1,5 @@
 package model;
 
-import android.provider.ContactsContract;
-import android.text.format.Time;
-
-import java.util.Date;
-
 public class Meeting {
 
 

@@ -21,12 +21,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import model.Meeting;
-import model.MeetingContainer;
-import model.MeetingList;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHolder> {
 
-    public MeetingContainer mMeetings = new MeetingContainer();
+    private final List<Meeting> mMeetings;
+
+    public MeetingAdapter(List<Meeting> mMeetings) {
+        this.mMeetings = mMeetings;
+    }
 
     @NonNull
     @Override
@@ -37,7 +39,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Meeting meeting = mMeetings.meetingList.get(position);
+        Meeting meeting = mMeetings.get(position);
         holder.mEmailHolder.setText(meeting.getEmail());
         holder.mInformationHolder.setText(meeting.getPlace() + " - " + meeting.getTime() + " - " + meeting.getSubject());
         Glide.with(holder.mImageHolder.getContext())
@@ -54,7 +56,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return mMeetings.meetingList.size();
+        return mMeetings.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
