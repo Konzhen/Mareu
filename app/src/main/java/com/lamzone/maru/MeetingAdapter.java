@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.lamzone.maru.events.DeleteMeetingEvent;
+import com.lamzone.maru.model.Meeting;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -20,7 +21,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.lamzone.maru.model.Meeting;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHolder> {
 
@@ -41,15 +41,16 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Meeting meeting = mMeetings.get(position);
         holder.mEmailHolder.setText(meeting.getEmail());
-        holder.mInformationHolder.setText(meeting.getPlace() + " - " + meeting.getTime() + " - " + meeting.getSubject());
+        holder.mInformationHolder.setText(meeting.getRoom() + " - " + meeting.getTime() + " - " + meeting.getSubject());
         Glide.with(holder.mImageHolder.getContext())
-                .load(meeting.getUrl())
+                .load(meeting.getUrl(meeting.getRoom()))
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.mImageHolder);
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new DeleteMeetingEvent(meeting));
+                notifyDataSetChanged();
             }
         });
     }

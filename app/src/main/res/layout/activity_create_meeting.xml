@@ -6,5 +6,94 @@
     android:layout_height="match_parent"
     tools:context=".view.CreateMeetingActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.google.android.material.chip.ChipGroup>
+
+            <com.google.android.material.textfield.TextInputEditText
+            android:layout_marginTop="18dp"
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Ajouter"
+                style="@style/Widget.MaterialComponents.Button"
+                app:cornerRadius="20dp"
+                android:backgroundTint="@color/white">
+            </com.google.android.material.button.MaterialButton>
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_marginTop="18dp"
+                android:id="@+id/sujet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/sujet"
+                android:inputType="text" />
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_marginTop="18dp"
+                android:id="@+id/timePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/heure"
+                android:inputType="text"
+                android:focusable="false"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_marginTop="18dp"
+                android:id="@+id/datePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/date"
+                android:inputType="text"
+                android:focusable="false"/>
+
+        <Spinner
+            android:id="@+id/placeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp">
+        </Spinner>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/create"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:cornerRadius="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/save"/>
+    </LinearLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

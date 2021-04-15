@@ -1,3 +1,48 @@
 <resources>
     <string name="app_name">Maréu</string>
+    <string name="date">Date</string>
+    <string name="heure">Heure</string>
+    <string name="sujet">Sujet</string>
+    <string name="save">Save</string>
+    <string name="room">Salle</string>
+    <string name="emails">Emails</string>
+    <string name="title">Filtre</string>
+    <string name="positiveButton">Save</string>
+    <string name="negativeButton">Cancel</string>
+
+    <string-array name="roomListFilter">
+        <item></item>
+        <item>Salle A</item>
+        <item>Salle B</item>
+        <item>Salle C</item>
+        <item>Salle D</item>
+        <item>Salle E</item>
+        <item>Salle F</item>
+        <item>Salle G</item>
+        <item>Salle H</item>
+        <item>Salle I</item>
+        <item>Salle J</item>
+    </string-array>
+
+    <string-array name="roomListCreate">
+        <item>Salle A</item>
+        <item>Salle B</item>
+        <item>Salle C</item>
+        <item>Salle D</item>
+        <item>Salle E</item>
+        <item>Salle F</item>
+        <item>Salle G</item>
+        <item>Salle H</item>
+        <item>Salle I</item>
+        <item>Salle J</item>
+    </string-array>
+
+    <string-array name="filtre">
+        <item>Date</item>
+        <item>Heure</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="FilterQuestion">Vous voulez filtrer vos réunions par ?</string>
+
 </resources>
