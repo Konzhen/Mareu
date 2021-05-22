@@ -1,6 +1,7 @@
 package com.lamzone.maru;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -45,7 +46,7 @@ public class MeetingActivity extends AppCompatActivity implements DialogFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting);
         ButterKnife.bind(this);
-        mAdapter = new MeetingAdapter(mApiService.getMeetings(null, -1));
+        mAdapter = new MeetingAdapter(mApiService.getMeetings());
         meetingRecycler.setAdapter(mAdapter);
         meetingRecycler.setLayoutManager(new LinearLayoutManager(this));
         meetingRecycler.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
@@ -68,6 +69,7 @@ public class MeetingActivity extends AppCompatActivity implements DialogFragment
     @Override
     public void onResume() {
         super.onResume();
+        mAdapter.setMeetings(mApiService.getMeetings());
         mAdapter.notifyDataSetChanged();
     }
 
@@ -86,7 +88,7 @@ public class MeetingActivity extends AppCompatActivity implements DialogFragment
     @Override
     public void onDestroy(){
         super.onDestroy();
-        mApiService.getMeetings(null, -1).clear();
+        mApiService.clearMeetings();
         mAdapter.notifyDataSetChanged();
     }
 
@@ -103,7 +105,10 @@ public class MeetingActivity extends AppCompatActivity implements DialogFragment
 
     @Override
     public void onDialogPositiveClick(DialogFragmentFilter dialog) {
-        mAdapter = new MeetingAdapter(mApiService.getMeetings(dialog.getDialogDate(), dialog.getDialogSpinner()));
+        if (dialog.getDialogDate() == "")
+            Log.v("ok", "parfait");
+        mAdapter.setMeetings(mApiService.getMeetings(dialog.getDialogDate(), dialog.getDialogSpinner()));
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

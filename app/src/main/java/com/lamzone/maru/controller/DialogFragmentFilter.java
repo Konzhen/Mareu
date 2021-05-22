@@ -3,6 +3,7 @@ package com.lamzone.maru.controller;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.lamzone.maru.DI.DI;
 import com.lamzone.maru.R;
 import com.lamzone.maru.model.MeetingApiService;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -39,28 +41,27 @@ public class DialogFragmentFilter extends DialogFragment {
     @BindView(R.id.dialogSpinner)
     Spinner dialogSpinner;
 
-    Calendar c = Calendar.getInstance();
+    Calendar localCalendar = Calendar.getInstance();
+    Calendar designedCalendar = Calendar.getInstance();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     MeetingApiService meetingApiService;
     DialogFilterListener listener;
-
-    public DialogFragmentFilter() {
-    }
 
     public static DialogFragmentFilter newInstance() {
         return new DialogFragmentFilter(); }
 
     public int getDialogSpinner() {
-        return dialogSpinner.getSelectedItemPosition();
+        return dialogSpinner.getSelectedItemPosition() - 1;
     }
 
     public String  getDialogDate() {
-        return dialogDate.toString();
+        String text = dialogDate.getText().toString();
+        return text;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         meetingApiService = DI.getMeetingApiService();
     }
 
@@ -92,17 +93,30 @@ public class DialogFragmentFilter extends DialogFragment {
         return builder.create();
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (DialogFilterListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException();
+        }
+    }
+
     private void init(){
         dialogDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH);
-                int day = c.get(Calendar.DAY_OF_MONTH);
+                int year = localCalendar.get(Calendar.YEAR);
+                int month = localCalendar.get(Calendar.MONTH);
+                int day = localCalendar.get(Calendar.DAY_OF_MONTH);
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        dialogDate.setText(dayOfMonth + "/" + month + "/" + year);
+                        designedCalendar.set(Calendar.YEAR, year);
+                        designedCalendar.set(Calendar.MONTH, month);
+                        designedCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        dialogDate.setText(dateFormat.format(designedCalendar.getTime()));
                             }
                         }  , year, month, day);
                     datePickerDialog.show();

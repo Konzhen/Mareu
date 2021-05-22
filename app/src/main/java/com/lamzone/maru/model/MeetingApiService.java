@@ -8,8 +8,12 @@ public interface MeetingApiService {
 
     List<Meeting> getMeetings(@Nullable String date, int room);
 
+    List<Meeting> getMeetings();
+
     void deleteMeeting(Meeting meeting);
 
     void createMeeting(Meeting meeting);
+
+    void clearMeetings();
 
 }

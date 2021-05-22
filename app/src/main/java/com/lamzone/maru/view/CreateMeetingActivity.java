@@ -31,6 +31,7 @@ import com.lamzone.maru.R;
 import com.lamzone.maru.model.Meeting;
 import com.lamzone.maru.model.MeetingApiService;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -57,7 +58,10 @@ public class CreateMeetingActivity extends AppCompatActivity implements AdapterV
     @BindView(R.id.addEmail)
     MaterialButton addEmail;
 
-    private Calendar c = Calendar.getInstance();
+    private final Calendar localCalendar = Calendar.getInstance();
+    private Calendar designedCalendar = Calendar.getInstance();
+    private SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private MeetingApiService mApiservice;
     private boolean dateBoolean = true;
     private boolean timeBoolean = true;
@@ -183,6 +187,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements AdapterV
         if (isValidEmail(email)) {
             chipGroup.addView(chip);
             checkChipgroupChild();
+            this.email.getText().clear();
         }
         else {
             Toast toast = Toast.makeText(getApplicationContext(), "Email non valide", Toast.LENGTH_SHORT);
@@ -200,25 +205,31 @@ public class CreateMeetingActivity extends AppCompatActivity implements AdapterV
     }
 
     private void createTimePickerDialog(){
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        int minute = c.get(Calendar.MINUTE);
+        int hour = localCalendar.get(Calendar.HOUR_OF_DAY);
+        int minute = localCalendar.get(Calendar.MINUTE);
+
         TimePickerDialog timePickerDialog = new TimePickerDialog(CreateMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                timePicker.setText(hourOfDay + "h" + minute);
+                designedCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                designedCalendar.set(Calendar.MINUTE, minute);
+                timePicker.setText(timeFormat.format(designedCalendar.getTime()));
             }
         }, hour, minute, true);
         timePickerDialog.show();
     }
 
     private void createDatePickerDialog(){
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+        int year = localCalendar.get(Calendar.YEAR);
+        int month = localCalendar.get(Calendar.MONTH);
+        int day = localCalendar.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog datePickerDialog = new DatePickerDialog(CreateMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                datePicker.setText(dayOfMonth + "/" + month +"/" + year);
+                designedCalendar.set(Calendar.YEAR, year);
+                designedCalendar.set(Calendar.MONTH, month);
+                designedCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                datePicker.setText(dateFormat.format(designedCalendar.getTime()));
             }
         }, year, month, day);
         datePickerDialog.show();

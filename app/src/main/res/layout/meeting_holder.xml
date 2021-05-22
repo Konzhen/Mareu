@@ -49,8 +49,5 @@
         android:layout_alignTop="@+id/imageHolder">
     </ImageButton>
 
-    <!-- Dire à un widget dans un constraint de se maintenit à gauche
-        définir une largeur max à un widget (ne pas dépasser x) -->
-
 
 </RelativeLayout>

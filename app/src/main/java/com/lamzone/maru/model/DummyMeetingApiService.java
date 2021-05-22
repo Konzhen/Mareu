@@ -1,6 +1,6 @@
 package com.lamzone.maru.model;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ public class DummyMeetingApiService implements MeetingApiService {
     private List<Meeting> meetings;
 
     public DummyMeetingApiService(){
-        meetings = MeetingList.generateMeetingList();
+        meetings = MeetingList.generateEmptyMeetingList();
     }
 
     @Override
@@ -24,19 +24,34 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public List<Meeting> getMeetings(@Nullable String date, int room) {
+    public List<Meeting> getMeetings(String date, int room) {
         ArrayList<Meeting> filter = new ArrayList();
         for (Meeting meeting : meetings) {
-            if (date == null && room == -1)
+            if (date.equals("") && room == -1)
                 return meetings;
             if (meeting.getDate().equals(date) && room == -1)
                 filter.add(meeting);
-            if (date == null && meeting.getRoom() == room)
+            if (date.equals("") && meeting.getRoom() == room)
                 filter.add(meeting);
             if (meeting.getDate().equals(date) && meeting.getRoom() == room)
                 filter.add(meeting);
         }
         return filter;
+    }
+
+    @Override
+    public List<Meeting> getMeetings(){
+        return getMeetings("", -1);
+    }
+
+    @Override
+    public void clearMeetings(){
+        meetings.clear();
+    }
+
+    @VisibleForTesting
+    public void createTestList () {
+        meetings = MeetingList.generateMeetingList();
     }
 
 }

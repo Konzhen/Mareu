@@ -24,9 +24,13 @@ import butterknife.ButterKnife;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHolder> {
 
-    private final List<Meeting> mMeetings;
+    private List<Meeting> mMeetings;
 
     public MeetingAdapter(List<Meeting> mMeetings) {
+        this.mMeetings = mMeetings;
+    }
+
+    public void setMeetings(List<Meeting> mMeetings) {
         this.mMeetings = mMeetings;
     }
 
@@ -41,7 +45,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Meeting meeting = mMeetings.get(position);
         holder.mEmailHolder.setText(meeting.getEmail());
-        holder.mInformationHolder.setText(meeting.getRoom() + " - " + meeting.getTime() + " - " + meeting.getSubject());
+        holder.mInformationHolder.setText(meeting.getDate()+ " - " + meeting.getTime() + " - " + meeting.getSubject());
         Glide.with(holder.mImageHolder.getContext())
                 .load(meeting.getUrl(meeting.getRoom()))
                 .apply(RequestOptions.circleCropTransform())
