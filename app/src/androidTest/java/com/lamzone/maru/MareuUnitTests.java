@@ -3,8 +3,8 @@ package com.lamzone.maru;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.lamzone.maru.DI.DI;
+import com.lamzone.maru.model.DummyMeetingApiService;
 import com.lamzone.maru.model.Meeting;
-import com.lamzone.maru.model.MeetingApiService;
 import com.lamzone.maru.model.MeetingList;
 
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
@@ -21,25 +21,26 @@ import static org.junit.Assert.assertThat;
 @RunWith(AndroidJUnit4.class)
 public class MareuUnitTests {
 
-    private MeetingApiService service;
+    private DummyMeetingApiService service;
 
     @Before
     public void setup() {
-        service = DI.getMeetingApiService();
+        service = (DummyMeetingApiService) DI.getMeetingApiService();
+        service.createTestList();
     }
 
     @Test
     public void getMeetingWithSuccess() {
         List<Meeting> meetings = service.getMeetings();
-        List<Meeting> expectedNeighbours = MeetingList.generateMeetingList();
-        assertThat(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedNeighbours.toArray()));
+        List<Meeting> expectedMeetings = MeetingList.generateMeetingList();
+        assertThat(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedMeetings.toArray()));
     }
 
     @Test
     public void deleteMeetingWithSuccess() {
-        Meeting neighbourToDelete = service.getMeetings().get(3);
-        service.deleteMeeting(neighbourToDelete);
-        assertFalse(service.getMeetings().contains(neighbourToDelete));
+        Meeting meetingToDelete = service.getMeetings().get(3);
+        service.deleteMeeting(meetingToDelete);
+        assertFalse(service.getMeetings().contains(meetingToDelete));
     }
 
     @Test

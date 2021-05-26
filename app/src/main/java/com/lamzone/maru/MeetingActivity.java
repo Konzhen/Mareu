@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lamzone.maru.DI.DI;
 import com.lamzone.maru.controller.DialogFragmentFilter;
+import com.lamzone.maru.controller.MeetingAdapter;
 import com.lamzone.maru.events.DeleteMeetingEvent;
 import com.lamzone.maru.model.MeetingApiService;
 import com.lamzone.maru.view.CreateMeetingActivity;

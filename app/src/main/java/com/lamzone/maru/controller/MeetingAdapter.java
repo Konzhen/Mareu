@@ -1,4 +1,4 @@
-package com.lamzone.maru;
+package com.lamzone.maru.controller;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.lamzone.maru.R;
 import com.lamzone.maru.events.DeleteMeetingEvent;
 import com.lamzone.maru.model.Meeting;
 

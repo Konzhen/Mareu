@@ -9,7 +9,6 @@ public class Meeting {
     private int mRoomPosition;
     private String mEmail;
     private String mSubject;
-    private String mUrl;
     private static long mId = 0;
 
     public Meeting(int mRoomPosition, String mEmail, String mSubject, String mTime, String mDate) {
@@ -24,16 +23,8 @@ public class Meeting {
         return mRoomPosition;
     }
 
-    public void setRoom(int place) {
-        this.mRoomPosition = place;
-    }
-
     public String getEmail() {
         return mEmail;
-    }
-
-    public void setEmail(String email) {
-        this.mEmail = email;
     }
 
     public static long getId() { return mId; }
@@ -44,20 +35,10 @@ public class Meeting {
         return mSubject;
     }
 
-    public void setSubject(String mSubject) { this.mSubject = mSubject; }
-
     public String getTime() { return mTime; }
-
-    public void setTime(String time) {
-        this.mTime = time;
-    }
 
     public String getDate() {
         return mDate;
-    }
-
-    public void setDate(String Date) {
-        this.mDate = Date;
     }
 
     public int getUrl (int mRoomPosition){

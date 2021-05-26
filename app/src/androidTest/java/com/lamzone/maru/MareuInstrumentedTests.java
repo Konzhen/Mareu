@@ -1,6 +1,7 @@
 package com.lamzone.maru;
 
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
@@ -33,6 +34,7 @@ import static org.hamcrest.Matchers.not;
 public class MareuInstrumentedTests {
 
     private DummyMeetingApiService service;
+    int itemCount;
 
     @Rule
     public ActivityTestRule<MeetingActivity> mMeetingActivityTestRule = new ActivityTestRule<MeetingActivity>(MeetingActivity.class) {
@@ -42,6 +44,7 @@ public class MareuInstrumentedTests {
             super.beforeActivityLaunched();
             service = (DummyMeetingApiService) DI.getMeetingApiService();
             service.createTestList();
+            itemCount = service.getMeetings().size();
         }
 
     };
@@ -54,7 +57,6 @@ public class MareuInstrumentedTests {
 
         @Test
         public void myMeetingList_deleteAction_shouldRemoveItem() {
-            int itemCount = service.getMeetings().size();
             onView(withId(R.id.meetingRecycler))
                     .perform(RecyclerViewActions.actionOnItemAtPosition(4, new DeleteMeetingAction()))
                     .check(withItemCount(itemCount - 1));
@@ -87,6 +89,40 @@ public class MareuInstrumentedTests {
         }
 
         @Test
+        public void createMeeting_withSuccess() {
+            onView(withId(R.id.createMeetingButton))
+                    .perform(click());
+            onView(withId(R.id.email))
+                    .perform(click())
+                    .perform(typeText("MonsieurPlusUn@Cestok.com"));
+            onView(withId(R.id.addEmail))
+                    .perform(click());
+            onView(withId(R.id.sujet))
+                    .perform(click())
+                    .perform(typeText("C'est l'heure du test !"));
+            onView(withId(R.id.timePicker))
+                    .perform(click());
+            onView(withClassName(Matchers.equalTo(TimePicker.class.getName())))
+                    .perform(PickerActions.setTime(18, 24));
+            onView(withText("OK"))
+                    .perform(click());
+            onView(withId(R.id.datePicker))
+                    .perform(click());
+            onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                    .perform(PickerActions.setDate(2021, 5, 2));
+            onView(withText("OK"))
+                    .perform(click());
+            onView(withId(R.id.placeSpinner))
+                    .perform(click());
+            onData(allOf(is(instanceOf(String.class)),
+                    is("Salle B"))).inRoot(isPlatformPopup()).perform(click());
+            onView(withText(R.string.positiveButton))
+                    .perform(click());
+            onView(withId(R.id.meetingRecycler))
+                    .check(withItemCount(itemCount + 1));
+        }
+
+        @Test
         public void applyDateFilter_withSuccess() {
             onView(withId(R.id.sort_button))
                     .perform(click());
@@ -96,7 +132,7 @@ public class MareuInstrumentedTests {
                     .perform(PickerActions.setDate(2021, 4, 29));
             onView(withText("OK"))
                     .perform(click());
-            onView(withText("Save"))
+            onView(withText(R.string.positiveButton))
                     .perform(click());
             onView(withId(R.id.meetingRecycler))
                     .check(withItemCount(3));
@@ -110,7 +146,7 @@ public class MareuInstrumentedTests {
                     .perform(click());
             onData(allOf(is(instanceOf(String.class)),
                     is("Salle G"))).inRoot(isPlatformPopup()).perform(click());
-            onView(withText("Save"))
+            onView(withText(R.string.positiveButton))
                     .perform(click());
             onView(withId(R.id.meetingRecycler))
                     .check(withItemCount(3));
@@ -130,7 +166,7 @@ public class MareuInstrumentedTests {
                     .perform(click());
             onData(allOf(is(instanceOf(String.class)),
                     is("Salle G"))).inRoot(isPlatformPopup()).perform(click());
-            onView(withText("Save"))
+            onView(withText(R.string.positiveButton))
                     .perform(click());
             onView(withId(R.id.meetingRecycler))
                     .check(withItemCount(2));
