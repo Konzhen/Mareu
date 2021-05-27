@@ -33,7 +33,6 @@ import com.lamzone.maru.model.MeetingApiService;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -258,10 +257,10 @@ public class CreateMeetingActivity extends AppCompatActivity implements AdapterV
     }
 
     private String returnEmailList(){
-        List<Integer> ids = chipGroup.getCheckedChipIds();
-        String emails = ids.toString();
-        for (int i=1; i<ids.size(); i++){
-            emails += ", " + ids.toString();
+        String emails = "";
+        for (int i=0; i<chipGroup.getChildCount(); i++){
+            Chip chip = (Chip)chipGroup.getChildAt(i);
+            emails += chip.getText() + " ";
         }
         return emails;
     }
