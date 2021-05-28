@@ -46,7 +46,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Meeting meeting = mMeetings.get(position);
         holder.mEmailHolder.setText(meeting.getEmail());
-        holder.mInformationHolder.setText(meeting.getDate()+ " - " + meeting.getTime() + " - " + meeting.getSubject());
+        holder.mInformationHolder.setText(meeting.getStringRoom(meeting.getRoom()) + " - " + meeting.getTime() + " - " + meeting.getSubject());
         Glide.with(holder.mImageHolder.getContext())
                 .load(meeting.getUrl(meeting.getRoom()))
                 .apply(RequestOptions.circleCropTransform())

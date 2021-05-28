@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/sort_button"
-        android:icon="@drawable/sort_button_icon"
+        android:icon="@drawable/ic_baseline_filter_list_24"
         android:iconTint="@color/white"
         android:title="Trier"
         app:showAsAction="always">

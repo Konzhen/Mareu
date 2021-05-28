@@ -3,7 +3,6 @@ package com.lamzone.maru.view;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -17,7 +16,6 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -62,10 +60,6 @@ public class CreateMeetingActivity extends AppCompatActivity implements AdapterV
     private SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private MeetingApiService mApiservice;
-    private boolean dateBoolean = true;
-    private boolean timeBoolean = true;
-    private boolean chipEmailBoolean = true;
-    private boolean sujetBoolean = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +107,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements AdapterV
 
             @Override
             public void afterTextChanged(Editable s) {
-                sujetBoolean = s.length() > 0;
+
             }
         });
         datePicker.addTextChangedListener(new TextWatcher() {
@@ -129,7 +123,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements AdapterV
 
             @Override
             public void afterTextChanged(Editable s) {
-                dateBoolean = s.length() > 0;
+
             }
         });
         timePicker.addTextChangedListener(new TextWatcher() {
@@ -145,13 +139,12 @@ public class CreateMeetingActivity extends AppCompatActivity implements AdapterV
 
             @Override
             public void afterTextChanged(Editable s) {
-                timeBoolean = s.length() > 0;
+
             }
         });
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @OnClick(R.id.create)
     void createMeeting() {
         boolean save = isSaveAvailable();
@@ -167,7 +160,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements AdapterV
             finish();
             }
         else {
-            Toast toast = Toast.makeText(getApplicationContext(), "Champs non valides", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getBaseContext(), "Champs non valides", Toast.LENGTH_SHORT);
             toast.show();
         }
     }
@@ -189,13 +182,13 @@ public class CreateMeetingActivity extends AppCompatActivity implements AdapterV
             this.email.getText().clear();
         }
         else {
-            Toast toast = Toast.makeText(getApplicationContext(), "Email non valide", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getBaseContext(), "Email non valide", Toast.LENGTH_SHORT);
             toast.show();
         }
     }
 
     private void checkChipgroupChild(){
-        chipEmailBoolean = chipGroup.getChildCount() > 0;
+
     }
 
     public static void navigate(FragmentActivity activity) {
@@ -253,7 +246,7 @@ public class CreateMeetingActivity extends AppCompatActivity implements AdapterV
     }
 
     private boolean isSaveAvailable() {
-        return datePicker.getTextSize() > 0 && timePicker.getTextSize() > 0 && chipGroup.getChildCount() > 0 && sujet.getTextSize() > 0;
+        return datePicker.getEditableText().toString().length() > 0 && timePicker.getEditableText().toString().length() > 0 && chipGroup.getChildCount() > 0 && sujet.getEditableText().toString().length() > 0;
     }
 
     private String returnEmailList(){

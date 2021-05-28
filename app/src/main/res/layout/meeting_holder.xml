@@ -19,22 +19,26 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="5dp"
         android:layout_toEndOf="@+id/imageHolder"
-        android:layout_alignTop="@+id/imageHolder">
+        android:layout_toStartOf="@id/deleteButton"
+        android:layout_alignTop="@+id/imageHolder"
+        android:ellipsize="end"
+        android:maxLines="1">
     </TextView>
 
     <TextView
         android:id="@+id/emailHolder"
-        android:text="robert@plifplouf.fr, bernard@plafplif.com"
+        android:text="robert@plifplouf.fr, bernard@plafplif.com, monsieurledirecteur@hotmail.fr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="5dp"
         android:paddingBottom="5dp"
         android:layout_toEndOf="@+id/imageHolder"
+        android:layout_toStartOf="@id/deleteButton"
         android:layout_alignBottom="@+id/imageHolder"
-        android:maxLength="45"
+        android:ellipsize="end"
         android:maxLines="1">
     </TextView>
 
@@ -42,11 +46,13 @@
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:src="@drawable/ic_delete_white_24dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/ic_baseline_delete_24"
         android:layout_alignParentEnd="true"
         android:layout_alignBottom="@+id/imageHolder"
-        android:layout_alignTop="@+id/imageHolder">
+        android:layout_alignTop="@+id/imageHolder"
+        android:background="@drawable/md_transparent">
     </ImageButton>
 
 
